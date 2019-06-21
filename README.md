@@ -5,7 +5,7 @@ The Project is built using Babel 7(Supports Typescript), Typescript 3.5, Webpack
 1) npm install to install all dependencies
 2) npm run start(Nodemon watch) --> Dev mode
 3) npm run build(To produce final bundle using webpack) 
-4) npm run serve --> Prod mode uses the emiited bundle 
+4) npm run serve --> Prod mode uses the emitted bundle 
 
 # Unit test(Jest)
 1) Project uses Facebook jest for unit testing
@@ -41,7 +41,7 @@ The Project is built using Babel 7(Supports Typescript), Typescript 3.5, Webpack
       }
 
 3) Get order Summary(/api/getOrderSummary):
-     A get Request that returns the array of Buy and sell orders as per the requirement.
+     A get Request that returns the array of Buy and Sell orders as per the requirement.
      UI like React or Angular need to parse and show.
 
 
