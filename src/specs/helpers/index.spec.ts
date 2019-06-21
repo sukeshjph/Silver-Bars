@@ -7,21 +7,25 @@ import * as fileOps from "../../helpers/fileOps";
 // jest.mock("../../helpers/fileOps");
 
 describe("Order Registration", () => {
-  it("should register a new Order", () => {
+  it("should register a new Order", async () => {
     const newOrder = {
       userId: "178906",
       quantity: 5.5,
       price: 300,
       orderType: "SELL"
     } as Order;
-    helpers.registerOrder(newOrder);
+    await helpers.registerOrder(newOrder);
+    const allOrdersAfterUpdate = await fileOps.readJsonFileAsync();
+    
     expect(
-      JSON.parse(helpers.getAllOrdersJSON()).find(order =>
+      allOrdersAfterUpdate.find(order =>
         equal(order, newOrder)
       )
     ).toBeTruthy();
   });
 });
+
+
 
 describe("Cancel Order", () => {
   it("should cancel a valid order", async () => {
@@ -64,6 +68,7 @@ describe("Order Summary", () => {
   });
 });
 
+
 describe("Utilities", () => {
   describe("Order object keys", () => {
     let testObj;
@@ -74,6 +79,8 @@ describe("Utilities", () => {
         "600": ["a", "b", "c"],
         "120": ["a", "b", "c"]
       };
+
+      jest.restoreAllMocks();
     });
 
     it("asc", () => {

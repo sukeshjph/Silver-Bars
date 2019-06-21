@@ -8,10 +8,12 @@ import { OrderTypes } from "../constants";
 export const getAllOrdersJSON = (): string =>
   JSON.stringify(fileOps.readJsonFile());
 
-export const registerOrder = async (order: Order): Promise<any> => {
+export const registerOrder = async (newOrder: Order): Promise<any> => {
+  const oldOrders = await fileOps.readJsonFileAsync();
+  const updatedOrderWithNewOrder = [...oldOrders,newOrder];  
   return await fileOps.writeJsonFileAsync(
-    JSON.stringify([...fileOps.readJsonFile(), order])
-  );
+    JSON.stringify(updatedOrderWithNewOrder)
+  ); 
 };
 
 export const sortObjKeys = (
