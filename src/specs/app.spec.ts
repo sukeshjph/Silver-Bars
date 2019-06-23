@@ -21,7 +21,7 @@ describe('Testing all app routes', () => {
             });
 
             it('should send 200 when succeeds', async () => {
-                const response = await request(app)
+                const response: any = await request(app)
                     .post('/api/registerOrder')
                     .send(newOrder)
                     .set('Accept', 'application/json')
@@ -34,7 +34,6 @@ describe('Testing all app routes', () => {
                     .post('/api/registerOrder')
                     .send(newOrder)
                     .set('Accept', 'application/json')
-                expect(response.statusCode).toBe(200);
                 expect(response.text).toBe('Order already exists');
             });
         });

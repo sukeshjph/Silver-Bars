@@ -15,8 +15,8 @@ describe("Order Registration", () => {
       orderType: "SELL"
     } as Order;
     await helpers.registerOrder(newOrder);
-    const allOrdersAfterUpdate = await fileOps.readJsonFileAsync();
-    
+    const allOrdersAfterUpdate: Order[] = await fileOps.readJsonFileAsync();
+
     expect(
       allOrdersAfterUpdate.find(order =>
         equal(order, newOrder)
@@ -49,12 +49,10 @@ describe("Cancel Order", () => {
 });
 
 describe("Order Summary", () => {
-  let spy;
-  beforeAll(() => {
-    spy = jest
-      .spyOn(helpers, "generateOrderInventory")
-      .mockImplementation(() => ["random text"]);
-  });
+  let spy = jest
+    .spyOn(helpers, "generateOrderInventory")
+    .mockImplementation(() => ["random text"]);;
+
   afterEach(() => {
     spy.mockClear();
     spy.mockRestore();
@@ -71,7 +69,7 @@ describe("Order Summary", () => {
 
 describe("Utilities", () => {
   describe("Order object keys", () => {
-    let testObj;
+    let testObj: StringTMap<string[]>;
 
     beforeEach(() => {
       testObj = {

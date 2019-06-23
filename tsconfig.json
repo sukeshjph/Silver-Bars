@@ -14,7 +14,7 @@
     "jsx": "preserve",
     "strictNullChecks": true,
     "isolatedModules": true,
-    "noImplicitAny": false
+    "noImplicitAny": true
   },
   "exclude": ["node_modules"]
 }
