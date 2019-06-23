@@ -1,23 +1,42 @@
 import request from 'supertest';
 import app from '../app';
+import { Order } from '../model';
 
 describe('Testing all app routes', () => {
     describe('Register Order', () => {
-        it('should send 200 when succeeds', async () => {
-            const newOrder = {
+        describe('Valid Order', () => {
+            let newOrder = {
                 "order": {
                     "userId": "166666",
-                    "quantity": 6.98,
-                    "price": 300,
+                    "quantity": 7.90,
+                    "price": 700,
                     "orderType": "SELL"
                 }
             };
+            beforeAll(async () => {
+                await request(app)
+                    .post('/api/cancelOrder')
+                    .send(newOrder)
+                    .set('Accept', 'application/json')
+            });
 
-            const response = await request(app)
-                .post('/api/registerOrder')
-                .send(newOrder)
-                .set('Accept', 'application/json')
-            expect(response.statusCode).toBe(200);
+            it('should send 200 when succeeds', async () => {
+                const response = await request(app)
+                    .post('/api/registerOrder')
+                    .send(newOrder)
+                    .set('Accept', 'application/json')
+                expect(response.statusCode).toBe(200);
+                expect(response.text).toBe('Registered Product successfully');
+            });
+
+            it('Duplicate Order', async () => {
+                const response = await request(app)
+                    .post('/api/registerOrder')
+                    .send(newOrder)
+                    .set('Accept', 'application/json')
+                expect(response.statusCode).toBe(200);
+                expect(response.text).toBe('Order already exists');
+            });
         });
 
         it('error if no order is sent', async () => {
