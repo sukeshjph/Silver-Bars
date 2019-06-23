@@ -9,11 +9,14 @@ export const getAllOrdersJSON = (): string =>
   JSON.stringify(fileOps.readJsonFile());
 
 export const registerOrder = async (newOrder: Order): Promise<any> => {
-  const oldOrders = await fileOps.readJsonFileAsync();
-  const updatedOrderWithNewOrder = [...oldOrders,newOrder];  
-  return await fileOps.writeJsonFileAsync(
-    JSON.stringify(updatedOrderWithNewOrder)
-  ); 
+  const oldOrders: Order[] = await fileOps.readJsonFileAsync();
+  const doesOrderExists = oldOrders.findIndex(order =>
+    equal(order, newOrder)
+  );
+  
+  return doesOrderExists !== -1 ? 'Order already exists': await fileOps.writeJsonFileAsync(
+    JSON.stringify([...oldOrders,newOrder])
+  );
 };
 
 export const sortObjKeys = (
